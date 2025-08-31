@@ -54,7 +54,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html'
     }),
-    new Dotenv()
+    new Dotenv({
+      path: 'E:yadex-practicumstellar-burgers.env.example'
+    })
   ],
   resolve: {
     extensions: [
