@@ -1,13 +1,28 @@
-import { FC, SyntheticEvent, useState } from 'react';
+import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { LoginUI } from '@ui-pages';
+import { useDispatch, useSelector } from '../../services/store';
+import {
+  loginUserThunk,
+  selectIsAuthenticated
+} from '../../services/sliceUser';
+import { useNavigate } from 'react-router-dom';
 
 export const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+    dispatch(loginUserThunk({ email: email, password: password }));
   };
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/profile');
+    }
+  }, [isAuthenticated]);
 
   return (
     <LoginUI

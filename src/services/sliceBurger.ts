@@ -14,7 +14,6 @@ export type TsliceBurgerConstructor = {
   };
   orderRequest: boolean;
   orderModalData: TOrder | null;
-  error: string | undefined | null;
   isLoading: boolean;
 };
 
@@ -25,7 +24,6 @@ const initialState: TsliceBurgerConstructor = {
   },
   orderRequest: false,
   orderModalData: null,
-  error: null,
   isLoading: false
 };
 
@@ -69,26 +67,22 @@ export const sliceBurgerConstructor = createSlice({
     builder
       .addCase(orderBurgerThunk.pending, (state) => {
         state.orderRequest = true;
-        state.error = null;
       })
       .addCase(orderBurgerThunk.rejected, (state, action) => {
         state.orderRequest = false;
-        state.error = action.error.message;
       })
       .addCase(orderBurgerThunk.fulfilled, (state, action) => {
         state.orderRequest = false;
         state.orderModalData = action.payload.order;
         state.constructorItems.bun = null;
         state.constructorItems.ingredients = [];
-        state.error = null;
       });
   },
   selectors: {
     getConstructorItems: (state) => state.constructorItems,
     getOrderRequest: (state) => state.orderRequest,
     getOrderModalData: (state) => state.orderModalData,
-    getLoading: (state) => state.isLoading,
-    getError: (state) => state.error
+    getLoading: (state) => state.isLoading
   }
 });
 
@@ -99,6 +93,5 @@ export const {
   getConstructorItems,
   getOrderRequest,
   getOrderModalData,
-  getLoading,
-  getError
+  getLoading
 } = sliceBurgerConstructor.selectors;

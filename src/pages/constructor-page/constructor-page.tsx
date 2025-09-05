@@ -11,7 +11,6 @@ import { getLoadingStatus } from '../../services/sliceIngridient';
 export const ConstructorPage: FC = () => {
   /** TODO: взять переменную из стора */
   const isIngredientsLoading = useSelector(getLoadingStatus);
-  console.log(isIngredientsLoading);
 
   return (
     <>

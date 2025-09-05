@@ -18,7 +18,6 @@ export const getIngredientsThunk = createAsyncThunk(
   'ingredients/getIngredients',
   async () => {
     const response = await getIngredientsApi();
-    console.log(response);
     return response;
   }
 );
@@ -40,21 +39,9 @@ export const sliceIngridients = createSlice({
     });
   },
   selectors: {
-    getIngredientsBuns: (state) =>
-      state.ingridients.filter((item) => item.type === 'bun'),
-    getIngredientsMains: (state) =>
-      state.ingridients.filter((item) => item.type === 'main'),
-    getIngredientsSauces: (state) =>
-      state.ingridients.filter((item) => item.type === 'sauce'),
     getIngredients: (state) => state.ingridients,
     getLoadingStatus: (state) => state.isLoading
   }
 });
 
-export const {
-  getIngredientsBuns,
-  getIngredientsMains,
-  getIngredientsSauces,
-  getIngredients,
-  getLoadingStatus
-} = sliceIngridients.selectors;
+export const { getIngredients, getLoadingStatus } = sliceIngridients.selectors;
