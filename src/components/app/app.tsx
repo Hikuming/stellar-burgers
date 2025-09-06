@@ -117,10 +117,10 @@ const App = () => {
           }
         />
         <Route path='/feed/:number' element={<DetailPage />} />
+        <Route path='*' element={<NotFound404 />} />
       </Routes>
       {background && (
         <Routes>
-          <Route path='*' element={<NotFound404 />} />
           <Route
             path='/feed/:number'
             element={
