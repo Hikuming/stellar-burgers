@@ -18,11 +18,6 @@ export const Login: FC = () => {
     e.preventDefault();
     dispatch(loginUserThunk({ email: email, password: password }));
   };
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/profile');
-    }
-  }, [isAuthenticated]);
 
   return (
     <LoginUI

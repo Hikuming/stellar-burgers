@@ -128,8 +128,6 @@ export const sliceUser = createSlice({
         state.isAuthenticated = false;
         state.loginUserRequest = false;
         state.user = null;
-        deleteCookie('accessToken');
-        localStorage.removeItem('refreshToken');
       })
       .addCase(logoutThunk.rejected, (state) => {
         state.isAuthenticated = false;

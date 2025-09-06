@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
@@ -6,7 +6,11 @@ import { useDispatch, useSelector } from '../../services/store';
 import { getIngredients } from '../../services/sliceIngridient';
 import { useParams } from 'react-router-dom';
 import { selectOrders } from '../../services/sliceOrders';
-import { selectFeedOrders } from '../../services/sliceFeed';
+import {
+  getFeedsOrderByNumberThunk,
+  selectFeedOrders,
+  selectFeedsOrderByNumber
+} from '../../services/sliceFeed';
 
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
@@ -16,11 +20,21 @@ export const OrderInfo: FC = () => {
   const feed = useSelector(selectFeedOrders);
 
   function findOrder(number: number) {
+    console.log('find order выполнили по заказу номер - ' + number);
+    if (Object.keys(feed).length === 0 && Object.keys(orders).length === 0) {
+      return useSelector(selectFeedsOrderByNumber);
+    }
     return (
       orders.find((order) => order.number === number) ||
       feed.find((order) => order.number === number)
     );
   }
+
+  useEffect(() => {
+    if (Object.keys(feed).length === 0 && Object.keys(orders).length === 0) {
+      dispatch(getFeedsOrderByNumberThunk(Number(number)));
+    }
+  }, [dispatch]);
 
   const orderData = findOrder(Number(number));
 

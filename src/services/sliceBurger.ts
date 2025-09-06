@@ -61,6 +61,44 @@ export const sliceBurgerConstructor = createSlice({
           (item) => item.id !== action.payload.id
         );
     },
+    moveUpIngridient: (state, action: PayloadAction<number>) => {
+      const index = action.payload;
+      if (index >= 0 && index < state.constructorItems.ingredients.length) {
+        const newIngredients = [...state.constructorItems.ingredients];
+
+        [newIngredients[index - 1], newIngredients[index]] = [
+          newIngredients[index],
+          newIngredients[index - 1]
+        ];
+
+        return {
+          ...state,
+          constructorItems: {
+            ...state.constructorItems,
+            ingredients: newIngredients
+          }
+        };
+      }
+    },
+    moveDownIngridient: (state, action: PayloadAction<number>) => {
+      const index = action.payload;
+      if (index >= 0 && index < state.constructorItems.ingredients.length - 1) {
+        const newIngredients = [...state.constructorItems.ingredients];
+
+        [newIngredients[index + 1], newIngredients[index]] = [
+          newIngredients[index],
+          newIngredients[index + 1]
+        ];
+
+        return {
+          ...state,
+          constructorItems: {
+            ...state.constructorItems,
+            ingredients: newIngredients
+          }
+        };
+      }
+    },
     clearOrder: (state) => initialState
   },
   extraReducers: (builder) => {
@@ -86,8 +124,13 @@ export const sliceBurgerConstructor = createSlice({
   }
 });
 
-export const { addIngridient, deleteIngridient, clearOrder } =
-  sliceBurgerConstructor.actions;
+export const {
+  addIngridient,
+  deleteIngridient,
+  clearOrder,
+  moveUpIngridient,
+  moveDownIngridient
+} = sliceBurgerConstructor.actions;
 
 export const {
   getConstructorItems,

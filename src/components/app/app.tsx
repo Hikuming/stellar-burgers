@@ -13,7 +13,13 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  useParams
+} from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { getIngredientsThunk } from '../../services/sliceIngridient';
@@ -25,7 +31,21 @@ const App = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const background = location.state?.background;
+  const locationState = location.state as { background?: Location };
+  const background = locationState && locationState.background;
+
+  const DetailPage = () => {
+    const { number } = useParams();
+
+    return (
+      <div className={styles.detailPageWrap}>
+        <p className={`text text_type_digits-default ${styles.detailHeader}`}>
+          #{number}
+        </p>
+        <OrderInfo />
+      </div>
+    );
+  };
 
   useEffect(() => {
     dispatch(getIngredientsThunk());
@@ -42,7 +62,7 @@ const App = () => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+      <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route
@@ -96,6 +116,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path='/feed/:number' element={<DetailPage />} />
       </Routes>
       {background && (
         <Routes>
@@ -103,21 +124,17 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <ProtectedRoute isPublic>
-                <Modal title={''} onClose={onCloseModal}>
-                  <OrderInfo />
-                </Modal>
-              </ProtectedRoute>
+              <Modal title={''} onClose={onCloseModal}>
+                <OrderInfo />
+              </Modal>
             }
           />
           <Route
             path='/ingredients/:id'
             element={
-              <ProtectedRoute isPublic>
-                <Modal title={''} onClose={onCloseModal}>
-                  <IngredientDetails />
-                </Modal>
-              </ProtectedRoute>
+              <Modal title={''} onClose={onCloseModal}>
+                <IngredientDetails />
+              </Modal>
             }
           />
           <Route
