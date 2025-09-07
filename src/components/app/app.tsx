@@ -118,6 +118,22 @@ const App = () => {
         />
         <Route path='/feed/:number' element={<DetailPage />} />
         <Route path='*' element={<NotFound404 />} />
+        <Route
+          path='/ingredients/:id'
+          element={
+            <div className={styles.detailPageWrap}>
+              <IngredientDetails />
+            </div>
+          }
+        />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       {background && (
         <Routes>
