@@ -159,7 +159,7 @@ export const checkUserAuth = createAsyncThunk(
   (_, { dispatch }) => {
     if (getCookie('accessToken')) {
       dispatch(getUserThunk()).finally(() => {
-        dispatch(authChecked()); //непонятно - переписать
+        dispatch(authChecked());
       });
     } else {
       dispatch(authChecked());
