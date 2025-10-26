@@ -1,7 +1,7 @@
 describe('ingredients tests', () => {
   beforeEach(() => {
     cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' });
-    cy.visit('http://localhost:4000');
+    cy.visit('/');
   });
 
    it('test adding ingridients', function() {

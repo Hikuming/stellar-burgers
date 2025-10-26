@@ -1,4 +1,4 @@
-import sliceOrders, { getOrdersThunk, TsliceOrders } from "./sliceOrders";
+import sliceOrders, { getOrdersThunk, TsliceOrders } from './sliceOrders';
 
 const orderData = {
   success: true,
@@ -63,10 +63,11 @@ describe('sliceOrders test', () => {
 
   it('getOrdersThunk fullfiled test', () => {
     const state = sliceOrders.reducer(
-      { ...initialState },
+      { ...initialState, isLoading: true },
       getOrdersThunk.fulfilled(orderData.orders, '')
     );
 
+    expect(state.isLoading).toEqual(false);
     expect(state.orders).toEqual(orderData.orders);
   });
 });
