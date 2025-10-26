@@ -20,7 +20,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
 }) => (
   <section className={styles.burger_constructor}>
     {constructorItems.bun ? (
-      <div className={`${styles.element} mb-4 mr-4`}>
+      <div className={`${styles.element} mb-4 mr-4`} data-cy='bun-top'>
         <ConstructorElement
           type='top'
           isLocked
@@ -32,6 +32,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
     ) : (
       <div
         className={`${styles.noBuns} ${styles.noBunsTop} ml-8 mb-4 mr-5 text text_type_main-default`}
+        data-cy='bun-top-empty'
       >
         Выберите булки
       </div>
@@ -51,13 +52,14 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
       ) : (
         <div
           className={`${styles.noBuns} ml-8 mb-4 mr-5 text text_type_main-default`}
+          data-cy='bun-item-empty'
         >
           Выберите начинку
         </div>
       )}
     </ul>
     {constructorItems.bun ? (
-      <div className={`${styles.element} mt-4 mr-4`}>
+      <div className={`${styles.element} mt-4 mr-4`} data-cy='bun-bottom'>
         <ConstructorElement
           type='bottom'
           isLocked
@@ -69,6 +71,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
     ) : (
       <div
         className={`${styles.noBuns} ${styles.noBunsBottom} ml-8 mb-4 mr-5 text text_type_main-default`}
+        data-cy='bun-bottom-empty'
       >
         Выберите булки
       </div>
@@ -78,13 +81,15 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         <p className={`text ${styles.text} mr-2`}>{price}</p>
         <CurrencyIcon type='primary' />
       </div>
-      <Button
-        htmlType='button'
-        type='primary'
-        size='large'
-        children='Оформить заказ'
-        onClick={onOrderClick}
-      />
+      <div data-cy='order-button'>
+        <Button
+          htmlType='button'
+          type='primary'
+          size='large'
+          children='Оформить заказ'
+          onClick={onOrderClick}
+        />
+      </div>
     </div>
 
     {orderRequest && (

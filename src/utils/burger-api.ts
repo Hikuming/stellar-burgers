@@ -1,7 +1,7 @@
 import { setCookie, getCookie } from './cookie';
 import { TIngredient, TOrder, TOrdersData, TUser } from './types';
 
-const URL = 'https://norma.nomoreparties.space/api';
+const URL = 'https://norma.education-services.ru/api';
 if (!URL) {
   console.error('API URL is not defined. Check your environment variables.');
 }
